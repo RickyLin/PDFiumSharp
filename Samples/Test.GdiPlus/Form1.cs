@@ -16,10 +16,11 @@ namespace Test.GdiPlus
 		{
 			base.OnLoad(e);
 
-			using (var doc = new PdfDocument("TestDoc.pdf", "password"))
+			using (var doc = new PdfDocument("TestDoc.pdf"))
 			{
 				var page = doc.Pages[0];
-				Bitmap bitmap = new Bitmap((int)page.Width, (int)page.Height);
+				short factor = 6;
+				Bitmap bitmap = new Bitmap((int)page.Width * factor, (int)page.Height * factor);
 				page.Render(bitmap);
 				this.pictureBox1.Image = bitmap;
 			}

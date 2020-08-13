@@ -13,6 +13,7 @@ namespace PDFiumSharp
 {
     public sealed class PdfPage : NativeWrapper<FPDF_PAGE>
     {
+		private PdfText _text;
 		/// <summary>
 		/// Gets the page width (excluding non-displayable area) measured in points.
 		/// One point is 1/72 inch(around 0.3528 mm).
@@ -62,6 +63,19 @@ namespace PDFiumSharp
 		/// Gets the <see cref="PdfDocument"/> which contains the page.
 		/// </summary>
 		public PdfDocument Document { get; }
+
+		public PdfText Text 
+		{ 
+			get
+            {
+				if(_text == null)
+                {
+					_text = new PdfText(PDFium.FPDFText_LoadPage(Handle));
+                }
+
+				return _text;
+            }
+		}
 
 		//public string Label => PDFium.FPDF_GetPageLabel(Document.Handle, Index);
 
