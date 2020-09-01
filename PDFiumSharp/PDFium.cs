@@ -74,15 +74,29 @@ namespace PDFiumSharp
 			return Encoding.UTF8.GetString(buffer, 0, (int)length - 1);
 		}
 
+
+		[DllImport("gdi32.dll")]
+		public static extern int SetGraphicsMode(IntPtr hdc, int iMode);
+
+		[DllImport("gdi32.dll")]
+		public static extern bool ModifyWorldTransform(IntPtr hdc, [In] ref XFORM lpXform, uint iMode);
+		
+		[DllImport("gdi32.dll")]
+		public static extern bool SetViewportOrgEx(IntPtr hdc, int X, int Y, out POINT lpPoint);
+
+		public const int GM_ADVANCED = 2;
+
+		public const uint MWT_LEFTMULTIPLY = 2;
+
 		#region https://pdfium.googlesource.com/pdfium/+/master/public/fpdfview.h
-        /// <summary>
-        /// Loads a PDF document from memory.
-        /// </summary>
-        /// <param name="data">The data to load the document from.</param>
-        /// <param name="index">The index of the first byte to be copied from <paramref name="data"/>.</param>
-        /// <param name="count">The number of bytes to copy from <paramref name="data"/> or a negative value to copy all bytes.</param>
-        /// <param name="password">Pdf password</param>
-        public static FPDF_DOCUMENT FPDF_LoadDocument(byte[] data, int index = 0, int count = -1, string password = null)
+		/// <summary>
+		/// Loads a PDF document from memory.
+		/// </summary>
+		/// <param name="data">The data to load the document from.</param>
+		/// <param name="index">The index of the first byte to be copied from <paramref name="data"/>.</param>
+		/// <param name="count">The number of bytes to copy from <paramref name="data"/> or a negative value to copy all bytes.</param>
+		/// <param name="password">Pdf password</param>
+		public static FPDF_DOCUMENT FPDF_LoadDocument(byte[] data, int index = 0, int count = -1, string password = null)
 		{
 			if (count < 0)
 				count = data.Length - index;

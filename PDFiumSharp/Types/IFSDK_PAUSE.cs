@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PDFiumSharp.Events;
+using System;
 using System.Runtime.InteropServices;
 
 namespace PDFiumSharp.Types
@@ -6,21 +7,18 @@ namespace PDFiumSharp.Types
 	[StructLayout(LayoutKind.Sequential)]
     public class IFSDK_PAUSE
     {
-		readonly int _version;
+		private readonly int Version;
 
 		[MarshalAs(UnmanagedType.FunctionPtr)]
-		readonly Func<IntPtr, bool> _needToPauseCore;
+		public NeedToPauseNowCallback needToPauseNowCallback;
 
-		readonly IntPtr _userData;
+		[MarshalAs(UnmanagedType.SafeArray)]
+		public byte[] userData;
 
-		readonly Func<bool> _needToPause;
-
-		public IFSDK_PAUSE(Func<bool> needToPause)
+		public IFSDK_PAUSE(byte[] userData = null)
 		{
-			_needToPause = needToPause ?? throw new ArgumentNullException(nameof(needToPause));
-			_needToPauseCore = (ignore) => needToPause();
-			_version = 1;
-			_userData = IntPtr.Zero;
+			Version = 1;
+			this.userData = userData;
 		}
     }
 }

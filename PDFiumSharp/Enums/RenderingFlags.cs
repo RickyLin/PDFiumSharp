@@ -5,6 +5,7 @@ Copyright (C) 2017 Tobias Meyer
 License: Microsoft Reciprocal License (MS-RL)
 */
 #endregion
+using PDFiumSharp.Types;
 using System;
 
 namespace PDFiumSharp.Enums
@@ -17,47 +18,47 @@ namespace PDFiumSharp.Enums
 		/// <summary>
 		/// Set if annotations are to be rendered.
 		/// </summary>
-		Annotations = 0x01,
+		Annotations = FPDF.ANNOT,
 
 		/// <summary>
 		/// Set if using text rendering optimized for LCD display.
 		/// </summary>
-		LcdText = 0x02,
+		LcdText = FPDF.LCD_TEXT,
 
 		/// <summary>
 		/// Don't use the native text output available on some platforms
 		/// </summary>
-		NoNativeText = 0x04,
+		NoNativeText = FPDF.NO_NATIVETEXT,
 
 		/// <summary>
 		/// Grayscale output.
 		/// </summary>
-		Grayscale = 0x08,
+		Grayscale = FPDF.GRAYSCALE,
 
 		/// <summary>
 		/// Set if you want to get some debug info.
 		/// </summary>
-		DebugInfo = 0x80,
+		DebugInfo = FPDF.DEBUG_INFO,
 
 		/// <summary>
 		/// Set if you don't want to catch exceptions.
 		/// </summary>
-		DontCatch = 0x100,
+		DontCatch = FPDF.NO_CATCH,
 
 		/// <summary>
 		/// Limit image cache size.
 		/// </summary>
-		LimitImageCache = 0x200,
+		LimitImageCache = FPDF.RENDER_LIMITEDIMAGECACHE,
 
 		/// <summary>
 		/// Always use halftone for image stretching.
 		/// </summary>
-		ForceHalftone = 0x400,
+		ForceHalftone = FPDF.RENDER_FORCEHALFTONE,
 
 		/// <summary>
 		/// Render for printing.
 		/// </summary>
-		Printing = 0x800,
+		Printing = FPDF.PRINTING,
 
 		/// <summary>
 		/// Set to disable anti-aliasing on text.
@@ -77,6 +78,15 @@ namespace PDFiumSharp.Enums
 		/// <summary>
 		/// Set whether to render in a reverse Byte order, this flag is only used when rendering to a bitmap.
 		/// </summary>
-		ReverseByteOrder = 0x10
+		ReverseByteOrder = 0x10,
+
+		/// <summary>
+        /// Render with a transparent background.
+        /// </summary>
+        Transparent = 0x6000,
+        /// <summary>
+        /// Correct height/width for DPI.
+        /// </summary>
+        CorrectFromDpi = 0x8000
 	}
 }

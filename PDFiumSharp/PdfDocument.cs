@@ -146,7 +146,7 @@ namespace PDFiumSharp
 
 		protected override void Dispose(FPDF_DOCUMENT handle)
 		{
-			((IDisposable)Pages).Dispose();
+			Pages.Dispose();
 			PDFium.FPDF_CloseDocument(handle);
 		}
 	}

@@ -50,7 +50,7 @@ namespace PDFiumSharp
 			}
 		}
 
-		void IDisposable.Dispose()
+		public void Dispose()
 		{
 			foreach (IDisposable page in _pages)
 				page?.Dispose();

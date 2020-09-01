@@ -18,11 +18,6 @@ namespace PDFiumSharp
 
         protected override void Dispose(FPDF_TEXTPAGE handle)
         {
-			if (IsDisposed)
-			{
-				return;
-			}
-			
 			if (!Handle.IsNull)
 			{
 				PDFium.FPDFText_ClosePage(Handle);
