@@ -1,9 +1,13 @@
-﻿namespace PDFiumSharp.Types
+﻿using System;
+
+namespace PDFiumSharp.Types
 {
     public interface IHandle<T>
     {
 		bool IsNull { get; }
 
-		T SetToNull();
+        IntPtr IntPtr { get; }
+
+        T SetToNull();
     }
 }

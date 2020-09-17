@@ -25,7 +25,7 @@ namespace PDFiumSharp
 		public BitmapFormats Format { get; }
 		public int BytesPerPixel => GetBytesPerPixel(Format);
 
-		PDFiumBitmap(FPDF_BITMAP bitmap, BitmapFormats format)
+		internal PDFiumBitmap(FPDF_BITMAP bitmap, BitmapFormats format)
 			: base(bitmap)
 		{
 			if (bitmap.IsNull)

@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using PDFiumSharp.Types;
 using System.IO;
 using PDFiumSharp.Enums;
+using System.Drawing;
 
 namespace PDFiumSharp
 {
@@ -143,6 +144,38 @@ namespace PDFiumSharp
 		public string GetMetaText(MetadataTags tag) => PDFium.FPDF_GetMetaText(Handle, tag);
 
 		public void CopyViewerPreferencesFrom(PdfDocument srcDoc) => PDFium.FPDF_CopyViewerPreferences(Handle, srcDoc.Handle);
+
+		public Point PointFromPdf(PdfPage page, PointF point)
+		{
+			var (x, y) = page.PageToDevice((0, 0, (int)page.Width, (int)page.Height), point.X, point.Y, page.Orientation);
+			return new Point(x, y);
+		}
+
+		public Rectangle RectangleFromPdf(PdfPage page, RectangleF rect)
+        {
+			var (x1, y1) = page.PageToDevice((0, 0, (int)page.Width, (int)page.Height), rect.X, rect.Y, page.Orientation);
+			var (x2, y2) = page.PageToDevice((0, 0, (int)page.Width, (int)page.Height), rect.Width, rect.Height, page.Orientation);
+
+			return new Rectangle(
+				x1,
+				y1,
+				x2 - x1,
+				y2 - y1
+			);
+		}
+
+		public Rectangle RectangleFromPdf(PdfPage page, FS_RECTF rect)
+		{
+			var (x1, y1) = page.PageToDevice((0, 0, (int)page.Width, (int)page.Height), rect.Left, rect.Top, page.Orientation);
+			var (x2, y2) = page.PageToDevice((0, 0, (int)page.Width, (int)page.Height), rect.Right, rect.Bottom, page.Orientation);
+
+			return new Rectangle(
+				x1,
+				y1,
+				x2 - x1,
+				y2 - y1
+			);
+		}
 
 		protected override void Dispose(FPDF_DOCUMENT handle)
 		{

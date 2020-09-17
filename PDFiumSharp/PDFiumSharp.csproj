@@ -2,17 +2,17 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
-    <AssemblyVersion>1.0.0.0</AssemblyVersion>
-    <Copyright>Copyright © Tobias Meyer 2017</Copyright>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <AssemblyVersion>0.0.1.0</AssemblyVersion>
+    <Copyright></Copyright>
     <Platforms>AnyCPU;x64</Platforms>
     <Product>PDFiumSharp</Product>
-    <PackageId>PDFiumSharp.NetStandart2.0</PackageId>
-    <Version>1.0.0</Version>
+    <PackageId>PDFiumSharp</PackageId>
+    <Version>0.0.1</Version>
     <Description>C#/.NET Wrapper for the PDFium library. Add also a package for the native binaries (currently only PDFium.Windows is provided) or provide them (pdfium_x64.dll, pdfium_x86.dll) yourself.</Description>
-    <PackageProjectUrl>https://github.com/Zubastic/PDFiumSharp/blob/master/README.md</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/Zubastic/PDFiumSharp</RepositoryUrl>
-    <PackageTags>PDF PDFium Rendering C# Renderer</PackageTags>
+    <PackageProjectUrl></PackageProjectUrl>
+    <RepositoryUrl></RepositoryUrl>
+    <PackageTags></PackageTags>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -74,11 +74,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>PDFium.tt</DependentUpon>
     </Compile>
-    <Compile Update="Properties\Resources.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Update="Types\FPDF_Typedefs.g.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -87,10 +82,20 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
+    <!--<Content Include="$(ProjectDir)..\Nuget\pdfium_x64.dll" PackagePath="lib\$(TargetFramework)" Visible="false" />
+    <Content Include="$(ProjectDir)..\Nuget\pdfium_x86.dll" PackagePath="lib\$(TargetFramework)" Visible="false" />
+    <Content Include="$(ProjectDir)..\Nuget\pdfium_x64.dll" PackagePath="runtimes\win\lib\$(TargetFramework)" Visible="false" />
+    <Content Include="$(ProjectDir)..\Nuget\pdfium_x86.dll" PackagePath="runtimes\win\lib\$(TargetFramework)" Visible="false" />
+    <Content Include="$(ProjectDir)..\Nuget\pdfium_x64.dll" PackagePath="ref\$(TargetFramework)" Visible="false" />
+    <Content Include="$(ProjectDir)..\Nuget\pdfium_x86.dll" PackagePath="ref\$(TargetFramework)" Visible="false" />-->
+
+    <Content Include="$(ProjectDir)..\Nuget\pdfium_x64.dll" PackagePath="build" Visible="false" />
+    <Content Include="$(ProjectDir)..\Nuget\pdfium_x86.dll" PackagePath="build" Visible="false" />
+    <Content Include="$(ProjectDir)..\Nuget\PDFium.WindowsV2.props" PackagePath="build" Visible="false" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+  
 </Project>

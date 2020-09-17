@@ -35,7 +35,8 @@ string[] Names = {
 	"FPDF_STRUCTELEMENT",
 	"FPDF_STRUCTTREE",
 	"FPDF_TEXTPAGE",
-	"FPDF_WIDGET" };
+	"FPDF_WIDGET"
+	};
 // --------------------------------------------------------- Code End ----------------------------------------------------- #>
 #region Copyright and License
 /*
@@ -71,12 +72,27 @@ foreach (string name in Names)
 		/// <summary>Gets a handle representing <c>null</c>.</summary>
 		public static <#=name#> Null => new <#=name#>();
 
+		IntPtr IHandle<<#=name#>>.IntPtr { get { return _ptr; } }
+
 		<#=name#>(IntPtr ptr)
 		{
 			_ptr = ptr;
 		}
 
 		<#=name#> IHandle<<#=name#>>.SetToNull() => new <#=name#>(Interlocked.Exchange(ref _ptr, IntPtr.Zero));
+
+		public static bool operator ==(<#=name#> a, <#=name#> b) => ((IHandle<<#=name#>>)a).IntPtr == ((IHandle<<#=name#>>)b).IntPtr;
+		public static bool operator !=(<#=name#> a, <#=name#> b) => ((IHandle<<#=name#>>)a).IntPtr != ((IHandle<<#=name#>>)b).IntPtr;
+
+		public override bool Equals(object obj)
+        {
+			return (obj as IHandle<FPDF_ACTION>) != null && this._ptr == (obj as IHandle<FPDF_ACTION>).IntPtr;
+        }
+
+		public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
 	}
 
 <# // ------------------------------------------------------ Code Start ------------------------------------------------------

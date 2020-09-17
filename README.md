@@ -2,7 +2,8 @@
 
 The PDFiumSharp library is a C#/.NET wrapper around the <a href="https://pdfium.googlesource.com/pdfium/">PDFium</a> library. It enables .NET developers to create, open, manipulate, render and save PDF documents.
 
-
+latest PDFium Build for windows:
+https://github.com/bblanchon/pdfium-binaries/releases
 
 ## Getting Started
 

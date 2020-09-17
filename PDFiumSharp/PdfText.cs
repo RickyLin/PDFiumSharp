@@ -7,13 +7,15 @@ namespace PDFiumSharp
 {
     public sealed class PdfText : NativeWrapper<FPDF_TEXTPAGE>
 	{
-		internal PdfText(FPDF_TEXTPAGE text) : base(text)
+		internal PdfPage PdfPage { get; }
+		internal PdfText(FPDF_TEXTPAGE text, PdfPage page) : base(text)
         {
 			if(Handle.IsNull) 
 			{
 				throw new PDFiumException();
 			}
 
+			PdfPage = page ?? throw new ArgumentNullException(nameof(page));
         }
 
         protected override void Dispose(FPDF_TEXTPAGE handle)
@@ -39,6 +41,14 @@ namespace PDFiumSharp
 			return PDFium.FPDFText_GetUnicode(Handle, index);
 		}
 
+		/// <summary>
+		/// Get the font size of a particular character.
+		/// </summary>
+		/// <param name="index">Zero-based index of the character.</param>
+		/// <returns>
+		/// The font size of the particular character, measured in points (about
+		/// 1/72 inch). This is the typographic size of the font (so called "em size").
+		/// </returns>
 		public float GetFontSize(int index)
 		{
 			return (float)PDFium.FPDFText_GetFontSize(Handle, index);
@@ -75,6 +85,25 @@ namespace PDFiumSharp
 		public PdfTextInfo GetTextInfo(int index, int count)
 		{
 			return new PdfTextInfo(this, index, count);
+		}
+
+		/// <summary>
+		/// Get the font name and flags of a particular character.
+		/// </summary>
+		/// <param name="charIndex">Zero-based index of the character.</param>
+		/// <returns></returns>
+		public string GetFontNameInfo(int charIndex)
+        {
+			// buffer[] is in UTF - 8 encoding.Return 0 on failure.
+			byte[] buffer = new byte[1024 * 768 * 4];
+			var length = PDFium.FPDFText_GetFontInfo(this.Handle, charIndex, buffer, (uint)buffer.Length, out int fontFlags);
+
+			if(length > 0)
+            {
+				return Encoding.UTF8.GetString(buffer);
+            }
+
+			return string.Empty;
 		}
 
 		public string GetBoundedText(float left, float top, float right, float bottom)

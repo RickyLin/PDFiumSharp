@@ -514,8 +514,355 @@ var Imports = new[] {
 		  AccessModifier = "public",
 		  Documentation = new string[] { },
 		  Attributes = new string[] { } },
+	
+	new { Method = "int FPDFOBJ_GetObjNum(FPDF_PAGEOBJECT handle)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "int FPDFOBJ_GetGenNum(FPDF_PAGEOBJECT handle)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
 
 	new { Method = "bool FPDFPageObjMark_GetParamIntValue(FPDF_PAGEOBJECTMARK mark, [MarshalAs(UnmanagedType.LPStr)] string key, out int out_value)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "ObjectTypes FPDFOBJ_GetType(FPDF_PAGEOBJECT handle)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "int FPDFOBJ_GetInteger(FPDF_PAGEOBJECT handle)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },	  
+
+	
+	new { Method = "void FPDFOBJ_SetString(FPDF_PAGEOBJECT handle, [MarshalAs(UnmanagedType.LPStr)] string str)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+	
+	new { Method = "FPDF_PAGEOBJECT FPDFBOOLEAN_Create(bool value)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "void FPDFOBJ_GetNumber(FPDF_PAGEOBJECT handle, [MarshalAs(UnmanagedType.R4)] out float num)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "bool FPDFNUMBER_IsInteger(FPDF_PAGEOBJECT handle)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "FPDF_PAGEOBJECT FPDFNUMBER_CreateInt(int value)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },	  
+	
+	new { Method = "FPDF_PAGEOBJECT FPDFNUMBER_CreateFloat([MarshalAs(UnmanagedType.R4)] float value)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },	
+
+	new { Method = "bool FPDFSTRING_IsHex(FPDF_PAGEOBJECT handle)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },	  
+
+	new { Method = "FPDF_PAGEOBJECT FPDFSTRING_CreateEmpty()",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "FPDF_PAGEOBJECT FPDFSTRING_CreateUnicode([MarshalAs(UnmanagedType.LPWStr)] string value)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "FPDF_PAGEOBJECT FPDFSTRING_CreateChar([MarshalAs(UnmanagedType.LPStr)] string value, bool bHex)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "FPDF_PAGEOBJECT FPDFNAME_Create([MarshalAs(UnmanagedType.LPStr)] string value)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "int FPDFARRAY_GetCount(FPDF_PAGEOBJECT handle)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "FPDF_PAGEOBJECT FPDFARRAY_Create()",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },	  
+	
+	new { Method = "FPDF_PAGEOBJECT FPDFARRAY_GetObjectAt(FPDF_PAGEOBJECT handle, int index)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "FPDF_PAGEOBJECT FPDFARRAY_GetArrayAt(FPDF_PAGEOBJECT handle, int index)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "void FPDFARRAY_GetNumberAt(FPDF_PAGEOBJECT handle, int index, [MarshalAs(UnmanagedType.R4)] out float number)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "int FPDFARRAY_GetNumberAt(FPDF_PAGEOBJECT handle, int index)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "int FPDFARRAY_GetStringAt(FPDF_PAGEOBJECT handle, int index, [MarshalAs(UnmanagedType.LPArray)] byte[] buffer, int buflen)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "void FPDFARRAY_AddNumber(FPDF_PAGEOBJECT handle, [MarshalAs(UnmanagedType.R4)] float value)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "void FPDFARRAY_AddInteger(FPDF_PAGEOBJECT handle, int value)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "void FPDFARRAY_AddString(FPDF_PAGEOBJECT handle, [MarshalAs(UnmanagedType.LPStr)] string value)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "void FPDFARRAY_AddName(FPDF_PAGEOBJECT handle, [MarshalAs(UnmanagedType.LPStr)] string value)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "void FPDFARRAY_AddReference(FPDF_PAGEOBJECT handle, System.IntPtr object_list, int objnum)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "void FPDFARRAY_AddReferenceEx(FPDF_PAGEOBJECT handle, System.IntPtr object_list, System.IntPtr obj)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "void FPDFARRAY_SetAt(FPDF_PAGEOBJECT handle, int index, System.IntPtr value, System.IntPtr object_list)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "void FPDFARRAY_Add(FPDF_PAGEOBJECT handle, System.IntPtr value, System.IntPtr object_list)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "void FPDFARRAY_InsertAt(FPDF_PAGEOBJECT handle, int index, System.IntPtr value, System.IntPtr object_list)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "void FPDFARRAY_RemoveAt(FPDF_PAGEOBJECT handle, int index, int count)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "bool FPDFDICT_IsSignatureDict(FPDF_PAGEOBJECT handle)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "int FPDFDICT_GetCount(FPDF_PAGEOBJECT handle)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "FPDF_PAGEOBJECT FPDFDICT_GetObjectBy(FPDF_PAGEOBJECT handle, [MarshalAs(UnmanagedType.LPStr)] string key)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "void FPDFDICT_SetAt(FPDF_PAGEOBJECT handle, [MarshalAs(UnmanagedType.LPStr)] string key, System.IntPtr value)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "bool FPDFDICT_Enum(FPDF_PAGEOBJECT handle, [MarshalAs(UnmanagedType.FunctionPtr)] PDFiumSharp.Events.DictEnumCallback callback)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "FPDF_PAGEOBJECT FPDFDICT_Create()",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "void FPDFDICT_GetMatrixBy(FPDF_PAGEOBJECT handle, [MarshalAs(UnmanagedType.LPStr)] string key, [MarshalAs(UnmanagedType.LPStruct)] [Out] FS_MATRIX rectangle)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "void FPDFDICT_SetAtMatrix(FPDF_PAGEOBJECT handle, [MarshalAs(UnmanagedType.LPStr)] string key, [MarshalAs(UnmanagedType.LPStruct)] [Out] FS_MATRIX rectangle)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "void FPDFDICT_GetRectBy(FPDF_PAGEOBJECT handle, [MarshalAs(UnmanagedType.LPStr)] string key, [MarshalAs(UnmanagedType.Struct)] out FS_RECTF rectangle)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "void FPDFDICT_SetAtRect(FPDF_PAGEOBJECT handle, [MarshalAs(UnmanagedType.LPStr)] string key, [MarshalAs(UnmanagedType.Struct)] [In] ref FS_RECTF value)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+		  
+	new { Method = "void FPDFDICT_GetNumberBy(FPDF_PAGEOBJECT handle, [MarshalAs(UnmanagedType.LPStr)] string key, [MarshalAs(UnmanagedType.R4)] out float number)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "int FPDFDICT_GetIntegerBy(FPDF_PAGEOBJECT handle, [MarshalAs(UnmanagedType.LPStr)] string key)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "void FPDFDICT_SetAtInteger(FPDF_PAGEOBJECT handle, [MarshalAs(UnmanagedType.LPStr)] string key, int value)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "void FPDFDICT_SetAtNumber(FPDF_PAGEOBJECT handle, [MarshalAs(UnmanagedType.LPStr)] string key, [MarshalAs(UnmanagedType.R4)] float value)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+	
+	new { Method = "bool FPDFDICT_GetBooleanBy(FPDF_PAGEOBJECT handle, [MarshalAs(UnmanagedType.LPStr)] string key, bool default_value)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "void FPDFDICT_SetAtBoolean(FPDF_PAGEOBJECT handle, [MarshalAs(UnmanagedType.LPStr)] string key, bool value)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "int FPDFDICT_GetStringBy(FPDF_PAGEOBJECT handle, [MarshalAs(UnmanagedType.LPStr)] string key, [MarshalAs(UnmanagedType.LPArray)] byte[] buffer, int buflen)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "int FPDFDICT_GetUnicodeTextBy(FPDF_PAGEOBJECT handle, [MarshalAs(UnmanagedType.LPStr)] string key, [MarshalAs(UnmanagedType.LPArray)] byte[] buffer, int buflen)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "void FPDFDICT_SetAtString(FPDF_PAGEOBJECT handle, [MarshalAs(UnmanagedType.LPStr)] string key, [MarshalAs(UnmanagedType.LPStr)] string value)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "void FPDFDICT_SetAtName(FPDF_PAGEOBJECT handle, [MarshalAs(UnmanagedType.LPStr)] string key, [MarshalAs(UnmanagedType.LPStr)] string value)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "void FPDFDICT_SetAtReference(FPDF_PAGEOBJECT handle, [MarshalAs(UnmanagedType.LPStr)] string key, System.IntPtr object_list, int objnum)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "void FPDFDICT_SetAtReferenceEx(FPDF_PAGEOBJECT handle, [MarshalAs(UnmanagedType.LPStr)] string key, System.IntPtr object_list, int objnum)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "void FPDFDICT_RemoveAt(FPDF_PAGEOBJECT handle, [MarshalAs(UnmanagedType.LPStr)] string key)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "bool FPDFDICT_KeyExist(FPDF_PAGEOBJECT handle, [MarshalAs(UnmanagedType.LPStr)] string key)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "int FPDFSTREAM_GetRawSize(FPDF_PAGEOBJECT handle)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "FPDF_PAGEOBJECT FPDFSTREAM_GetRawData(FPDF_PAGEOBJECT handle)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "bool FPDFSTREAM_IsMemoryBased(FPDF_PAGEOBJECT handle)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "FPDF_PAGEOBJECT FPDFSTREAM_GetDecodedData(FPDF_PAGEOBJECT handle, out int size)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "FPDF_PAGEOBJECT FPDFSTREAM_Create(FPDF_PAGEOBJECT handle, int size, System.IntPtr dictionary)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "void FPDFSTREAM_SetData(FPDF_PAGEOBJECT handle, System.IntPtr data, int size, bool bCompressed, bool bKeepBuf)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "void FPDFSTREAM_InitStream(FPDF_PAGEOBJECT handle, [MarshalAs(UnmanagedType.LPArray)] byte[] data, int size, System.IntPtr dictionary)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "bool FPDFSTREAM_InitStream(FPDF_PAGEOBJECT handle, int start_pos, [MarshalAs(UnmanagedType.LPArray)] [Out] byte[] buf, int buf_len)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "FPDF_PAGEOBJECT FPDFOBJ_GetDict(FPDF_PAGEOBJECT handle)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "FPDF_PAGEOBJECT FPDFNULL_Create()",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "FPDF_PAGEOBJECT FPDFREF_GetObjList(FPDF_PAGEOBJECT handle)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "int FPDFREF_GetRefObjNum(FPDF_PAGEOBJECT handle)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "FPDF_PAGEOBJECT FPDFOBJ_GetDirect(FPDF_PAGEOBJECT handle)",
 		  AccessModifier = "public",
 		  Documentation = new string[] { },
 		  Attributes = new string[] { } },
@@ -524,6 +871,16 @@ var Imports = new[] {
 		  AccessModifier = "public",
 		  Documentation = new string[] { },
 		  Attributes = new string[] { } },
+	
+	new { Method = "void FPDFOBJ_SetDestroyCallback(FPDF_PAGEOBJECT handle, [MarshalAs(UnmanagedType.FunctionPtr)] PDFiumSharp.Events.InternalObjectDestroyCallback callback)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "FPDF_PAGEOBJECT FPDFOBJ_GetParentObj(FPDF_PAGEOBJECT handle)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },	
 
 	new { Method = "bool FPDFPageObjMark_GetParamBlobValue(FPDF_PAGEOBJECTMARK mark, [MarshalAs(UnmanagedType.LPStr)] string key, ref byte buffer, uint buflen, out uint out_buflen)",
 		  AccessModifier = "public",
@@ -675,6 +1032,11 @@ var Imports = new[] {
 		  Documentation = new string[] { },
 		  Attributes = new string[] { } },
 
+	new { Method = "void FPDFPageObj_GetBoundingBox(FPDF_PAGEOBJECT page_object, [MarshalAs(UnmanagedType.LPStruct)] Nullable<FS_MATRIX> pMatrix, out int left, out int top, out int right, out int bottom)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
 	new { Method = "int FPDFPath_CountSegments(FPDF_PAGEOBJECT path)",
 		  AccessModifier = "public",
 		  Documentation = new string[] { },
@@ -730,7 +1092,7 @@ var Imports = new[] {
 		  Documentation = new string[] { },
 		  Attributes = new string[] { } },
 
-	new { Method = "bool FPDFPath_GetMatrix(FPDF_PAGEOBJECT path, FS_MATRIX matrix)",
+	new { Method = "bool FPDFPath_GetMatrix(FPDF_PAGEOBJECT path, ref FS_MATRIX matrix)",
 		  AccessModifier = "public",
 		  Documentation = new string[] { },
 		  Attributes = new string[] { } },
@@ -759,13 +1121,18 @@ var Imports = new[] {
 		  AccessModifier = "public",
 		  Documentation = new string[] { },
 		  Attributes = new string[] { } },
-
-	new { Method = "bool FPDFTextObj_GetMatrix(FPDF_PAGEOBJECT text, FS_MATRIX matrix)",
+	
+	new { Method = "void FPDFTextObj_SetMatrix(FPDF_PAGEOBJECT text, [MarshalAs(UnmanagedType.R4)] float a, [MarshalAs(UnmanagedType.R4)] float b, [MarshalAs(UnmanagedType.R4)] float c, [MarshalAs(UnmanagedType.R4)] float d, [MarshalAs(UnmanagedType.R4)] float e, [MarshalAs(UnmanagedType.R4)] float f)",
 		  AccessModifier = "public",
 		  Documentation = new string[] { },
 		  Attributes = new string[] { } },
 
 	new { Method = "float FPDFTextObj_GetFontSize(FPDF_PAGEOBJECT text)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "float FPDFTextObj_SetFontSize(FPDF_PAGEOBJECT text, [MarshalAs(UnmanagedType.R4)] float size)",
 		  AccessModifier = "public",
 		  Documentation = new string[] { },
 		  Attributes = new string[] { } },
@@ -794,23 +1161,85 @@ var Imports = new[] {
 		  AccessModifier = "public",
 		  Documentation = new string[] { },
 		  Attributes = new string[] { } },
-
-	new { Method = "uint FPDFTextObj_GetText(FPDF_PAGEOBJECT text_object, FPDF_TEXTPAGE text_page, ref byte buffer, uint length)",
+	
+	new { Method = "FPDF_FONT FPDFTextObj_GetFont(FPDF_PAGEOBJECT text)",
 		  AccessModifier = "public",
 		  Documentation = new string[] { },
 		  Attributes = new string[] { } },
+
+	new { Method = "void FPDFTextObj_GetFont(FPDF_PAGEOBJECT text, FPDF_FONT font)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "uint FPDFTextObj_GetText(FPDF_PAGEOBJECT text_object, FPDF_TEXTPAGE text_page, ref byte buffer, int length)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "void FPDFTextObj_GetCharSpacing(FPDF_PAGEOBJECT text_object, [MarshalAs(UnmanagedType.R4)] out float spacing)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+	
+	new { Method = "void FPDFTextObj_SetCharSpacing(FPDF_PAGEOBJECT text_object, [MarshalAs(UnmanagedType.R4)] out float spacing)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "void FPDFTextObj_GetWordSpacing(FPDF_PAGEOBJECT text_object, [MarshalAs(UnmanagedType.R4)] out float spacing)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "void FPDFTextObj_SetWordSpacing(FPDF_PAGEOBJECT text_object, [MarshalAs(UnmanagedType.R4)] out float spacing)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "int FPDFTextObj_CountChars(FPDF_PAGEOBJECT text_object)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "void FPDFTextObj_GetCharInfo(FPDF_PAGEOBJECT text_object, int index, out int charCode, [MarshalAs(UnmanagedType.R4)] out float kerning)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "void FPDFTextObj_GetItemInfo(FPDF_PAGEOBJECT text_object, int index, out int charCode, [MarshalAs(UnmanagedType.R4)] out float originX, [MarshalAs(UnmanagedType.R4)] out float originY)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "void FPDFTextObj_GetSpaceCharWidth(FPDF_PAGEOBJECT text_object, [MarshalAs(UnmanagedType.R4)] out float width)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+	
+	new { Method = "void FPDFTextObj_GetPos(FPDF_PAGEOBJECT text_object, [MarshalAs(UnmanagedType.R4)] out float x, [MarshalAs(UnmanagedType.R4)] out float y)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "void FPDFTextObj_SetPosition(FPDF_PAGEOBJECT text_object, [MarshalAs(UnmanagedType.R4)] float x, [MarshalAs(UnmanagedType.R4)] float y)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+
 
 	new { Method = "int FPDFFormObj_CountObjects(FPDF_PAGEOBJECT form_object)",
 		  AccessModifier = "public",
 		  Documentation = new string[] { },
 		  Attributes = new string[] { } },
 
-	new { Method = "FPDF_PAGEOBJECT FPDFFormObj_GetObject(FPDF_PAGEOBJECT form_object, uint index)",
+	new { Method = "FPDF_PAGEOBJECT FPDFFormObj_GetObject(FPDF_PAGEOBJECT form_object, int index)",
 		  AccessModifier = "public",
 		  Documentation = new string[] { },
 		  Attributes = new string[] { } },
 
-	new { Method = "bool FPDFFormObj_GetMatrix(FPDF_PAGEOBJECT form_object, FS_MATRIX matrix)",
+	new { Method = "bool FPDFFormObj_GetMatrix(FPDF_PAGEOBJECT form_object, ref FS_MATRIX matrix)",
 		  AccessModifier = "public",
 		  Documentation = new string[] { },
 		  Attributes = new string[] { } },
@@ -958,7 +1387,7 @@ var Imports = new[] {
 		  Documentation = new string[] { },
 		  Attributes = new string[] { } },
 
-	new { Method = "uint FPDFText_GetFontInfo(FPDF_TEXTPAGE text_page, int index, ref byte buffer, uint buflen, out int flags)",
+	new { Method = "uint FPDFText_GetFontInfo(FPDF_TEXTPAGE text_page, int index, [MarshalAs(UnmanagedType.LPArray)] [Out] byte[] buffer, uint buflen, out int flags)",
 		  AccessModifier = "public",
 		  Documentation = new string[] { },
 		  Attributes = new string[] { } },
@@ -998,7 +1427,7 @@ var Imports = new[] {
 		  Documentation = new string[] { },
 		  Attributes = new string[] { } },
 
-	new { Method = "bool FPDFText_GetMatrix(FPDF_TEXTPAGE text_page, int index, FS_MATRIX matrix)",
+	new { Method = "bool FPDFTextObj_GetMatrix(FPDF_PAGEOBJECT textObject, ref FS_MATRIX matrix)",
 		  AccessModifier = "public",
 		  Documentation = new string[] { },
 		  Attributes = new string[] { } },
@@ -1192,7 +1621,129 @@ var Imports = new[] {
 	new { Method = "void FPDFPage_InsertClipPath(FPDF_PAGE page, FPDF_CLIPPATH clipPath)",
 		  AccessModifier = "public",
 		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "FontTypes FPDFFont_GetFontType(FPDF_FONT font)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "int FPDFFont_GetFontTypeName(FPDF_FONT font, [MarshalAs(UnmanagedType.LPArray)] byte[] buffer, int len)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "int FPDFFont_GetBaseFont(FPDF_FONT font, [MarshalAs(UnmanagedType.LPArray)] byte[] buffer, int len)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "void FPDFFont_GetSubstFont(FPDF_FONT font, out FPDF_FONT ExtHandle, out FPDF_FONT Family, out int Charset, out FontSubstFlags SubstFlags, out int Weight, out int ItalicAngle, out bool SubstOfCJK, out int WeightCJK, out bool ItlicCJK)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "FontFlags FPDFFont_GetFlags(FPDF_FONT font)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "bool FPDFFont_IsVertWriting(FPDF_FONT font)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "bool FPDFFont_IsEmbedded(FPDF_FONT font)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "bool FPDFFont_IsUnicodeCompatible(FPDF_FONT font)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "bool FPDFFont_IsStandardFont(FPDF_FONT font)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "int FPDFFont_GetTypeAscent(FPDF_FONT font)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "int FPDFFont_GetTypeDescent(FPDF_FONT font)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "int FPDFFont_GetItalicAngle(FPDF_FONT font)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+
+	new { Method = "int FPDFFont_GetStemV(FPDF_FONT font)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "int FPDFFont_GetStringWidth(FPDF_FONT font, [MarshalAs(UnmanagedType.LPStr)] string text, int size)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "int FPDFFont_GetCharWidthF(FPDF_FONT font, int charcode, int level = 0)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "int FPDFFont_GetCharTypeWidth(FPDF_FONT font, int charcode, out bool IsVert)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "void FPDFFont_GetCharBBox(FPDF_FONT font, int charcode, out int left, out int top, out int right, out int bottom, int level = 0)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "char FPDFFont_UnicodeFromCharCode(FPDF_FONT font, [MarshalAs(UnmanagedType.I4)] int charcode)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "int FPDFFont_CharCodeFromUnicode(FPDF_FONT font, [MarshalAs(UnmanagedType.I2)] char unicode)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "FPDF_PAGEOBJECT FPDFFont_GetFontDict(FPDF_FONT font)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "void FPDFFormObj_CalcBoundingBox(FPDF_FORMHANDLE formObject)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "void FPDFFormObj_SetFormMatrix(FPDF_FORMHANDLE formObject, [MarshalAs(UnmanagedType.LPStruct)] FS_MATRIX pMatrix)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "void FPDFFormObj_GetFormMatrix(FPDF_FORMHANDLE formObject, [MarshalAs(UnmanagedType.LPStruct)] FS_MATRIX pMatrix)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
+		  Attributes = new string[] { } },
+
+	new { Method = "FPDF_FORMHANDLE FPDFFormObj_GetFormContent(FPDF_FORMHANDLE formObject, [MarshalAs(UnmanagedType.LPStruct)] FS_MATRIX pMatrix)",
+		  AccessModifier = "public",
+		  Documentation = new string[] { },
 		  Attributes = new string[] { } }
+
 };
 // --------------------------------------------------------- Code End ----------------------------------------------------- #>
 #region Copyright and License

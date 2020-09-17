@@ -24,6 +24,8 @@ namespace PDFiumSharp
 		public event EventHandler Loaded;
 		public event EventHandler Disposed;
 
+        private PdfPageObjectsCollection _pageObjects;
+
 		/// <summary>
 		/// Gets the page width (excluding non-displayable area) measured in points.
 		/// One point is 1/72 inch(around 0.3528 mm).
@@ -80,16 +82,28 @@ namespace PDFiumSharp
             {
 				if(_text == null)
                 {
-					_text = new PdfText(PDFium.FPDFText_LoadPage(Handle));
+					_text = new PdfText(PDFium.FPDFText_LoadPage(Handle), this);
                 }
 
 				return _text;
             }
 		}
 
-		//public string Label => PDFium.FPDF_GetPageLabel(Document.Handle, Index);
+        public PdfPageObjectsCollection PageObjects
+        {
+            get
+            {
+                if (_pageObjects == null)
+                {
+                    _pageObjects = new PdfPageObjectsCollection(this);
+                }
+                return _pageObjects;
+            }
+        }
 
-		PdfPage(PdfDocument doc, FPDF_PAGE page, int index)
+        //public string Label => PDFium.FPDF_GetPageLabel(Document.Handle, Index);
+
+        PdfPage(PdfDocument doc, FPDF_PAGE page, int index)
 			: base(page)
 		{
 			if (page.IsNull)
@@ -122,6 +136,11 @@ namespace PDFiumSharp
 		{
 			if (renderTarget == null)
 				throw new ArgumentNullException(nameof(renderTarget));
+
+            if (IsDisposed)
+            {
+                throw new ObjectDisposedException(GetType().Name);
+            }
 
 			//if((flags & RenderingFlags.CorrectFromDpi) != 0)
    //         {
@@ -396,5 +415,23 @@ namespace PDFiumSharp
             return (flags & ~(RenderingFlags.Transparent | RenderingFlags.CorrectFromDpi));
         }
         #endregion New Render() methods
+
+        //public Rectangle BoundingBox
+        //{
+        //    get
+        //    {
+        //        PDFium.FPDFPageObj_GetBoundingBox(Handle, null, out int left, out int top, out int right, out int bottom);
+        //        return new Rectangle(left, top, right - left, bottom - top);
+        //    }
+        //}
+
+        //public Rectangle Box
+        //{
+        //    get
+        //    {
+        //        PDFium.FPDFPageObj_GetBounds(Handle, out float left, out float bottom, out float right, out float top);
+        //        return new Rectangle((int)left, (int)top, (int)right - (int)left, (int)bottom - (int)top);
+        //    }
+        //}
     }
 }

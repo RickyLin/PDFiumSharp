@@ -14,6 +14,7 @@ using System.Globalization;
 using System.Text;
 using System.Collections.Generic;
 using PDFiumSharp.Enums;
+using System.Runtime.ExceptionServices;
 
 namespace PDFiumSharp
 {
@@ -400,10 +401,166 @@ namespace PDFiumSharp
 			return GetUtf16String((ref byte buffer, int length) => FPDFText_GetBoundedText(text_page, left, top, right, bottom, ref buffer, length), sizeof(ushort), false);
 		}
 
+		public static string FPDFTextObj_GetTextUnicode(FPDF_PAGEOBJECT page_object, FPDF_TEXTPAGE text_page)
+        {
+			return GetUtf16String((ref byte buffer, int length) => (int)FPDFTextObj_GetText(page_object, text_page, ref buffer, length), sizeof(ushort), false);
+        }
+
+		public static string FPDFTextObj_GetTextAnsi(FPDF_PAGEOBJECT page_object, FPDF_TEXTPAGE text_page)
+		{
+			return GetAsciiString((ref byte buffer, int length) => (int)FPDFTextObj_GetText(page_object, text_page, ref buffer, length));
+		}
+
 		public static string FPDFLink_GetURL(FPDF_PAGELINK link_page, int link_index)
 		{
 			return GetUtf16String((ref byte buffer, int length) => FPDFLink_GetURL(link_page, link_index, ref buffer, length), sizeof(ushort), true);
 		}
+
+		#endregion
+
+		#region TextObject
+		//private static bool GetTextsFromItems(FPDF_PAGEOBJECT textObject, out byte[] ascii, out char[] unicode)
+		//{
+		//	ascii = null;
+		//	unicode = null;
+		//	FPDF_FONT font = PDFium.FPDFTextObj_GetFont(textObject);
+		//	if (font.IsNull)
+		//	{
+		//		return false;
+		//	}
+		//	int num = PDFium.FPDFTextObj_CountChars(textObject);
+		//	if (num == 0)
+		//	{
+		//		return false;
+		//	}
+		//	float num2 = 0f;
+		//	PDFium.FPDFTextObj_GetSpaceCharWidth(textObject, out num2);
+		//	float[] array = new float[num * 2];
+		//	PDFium.FPDFTextObj_CalcCharPos(textObject, array);
+		//	int i = 0;
+		//	int num3 = 0;
+		//	List<char> list = new List<char>();
+		//	PDFium.FPDFTextObj_GetSpaceCharWidth(textObject, out num2);
+		//	int num4 = 0;
+		//	while (i < num)
+		//	{
+		//		int num5;
+		//		float num6;
+		//		float num7;
+		//		PDFium.FPDFTextObj_GetItemInfo(textObject, i, out num5, out num6, out num7);
+		//		if (num5 == -1 && num3 > 0)
+		//		{
+		//			num++;
+		//			float num8 = array[num3] - array[num3 - 1];
+		//			int num9 = (int)(num8 / num2) - num4;
+		//			if (num9 > 0)
+		//			{
+		//				list.AddRange(new string(' ', num9));
+		//			}
+		//			else if (num8 > 1f && num4 == 0)
+		//			{
+		//				list.Add(' ');
+		//			}
+		//		}
+		//		else
+		//		{
+		//			char c = PDFium.FPDFFont_UnicodeFromCharCode(font, num5);
+		//			c = ((c == '\0') ? ((char)num5) : c);
+		//			list.Add(c);
+		//			num4 = ((c == ' ') ? (num4 + 1) : 0);
+		//			num3 += 2;
+		//		}
+		//		i++;
+		//	}
+		//	unicode = new char[list.Count];
+		//	ascii = new byte[list.Count];
+		//	for (int j = 0; j < list.Count; j++)
+		//	{
+		//		unicode[j] = list[j];
+		//		ascii[j] = (byte)list[j];
+		//	}
+		//	return true;
+		//}
+
+		//public static string FPDFTextObj_GetTextFromItems(FPDF_PAGEOBJECT textObject, int codePage)
+		//{
+		//	byte[] bytes;
+		//	char[] array;
+		//	if (PDFium.GetTextsFromItems(textObject, out bytes, out array))
+		//	{
+		//		return ((codePage != 0) ? Encoding.GetEncoding(codePage) : Encoding.ASCII).GetString(bytes);
+		//	}
+		//	return "";
+		//}
+
+		//public static string FPDFTextObj_GetTextFromItems(FPDF_PAGEOBJECT textObject)
+		//{
+		//	byte[] array;
+		//	char[] value;
+		//	if (PDFium.GetTextsFromItems(textObject, out array, out value))
+		//	{
+		//		return new string(value);
+		//	}
+		//	return "";
+		//}
+
+		//private static bool GetTexts(FPDF_PAGEOBJECT textObject, out byte[] ascii, out char[] unicode, out float[] kernings)
+		//{
+		//	ascii = null;
+		//	unicode = null;
+		//	kernings = null;
+		//	int num = PDFium.FPDFTextObj_CountChars(textObject);
+		//	if (num == 0)
+		//	{
+		//		return false;
+		//	}
+		//	FPDF_FONT font = PDFium.FPDFTextObj_GetFont(textObject);
+		//	if (font.IsNull)
+		//	{
+		//		return false;
+		//	}
+		//	ascii = new byte[num];
+		//	unicode = new char[num];
+		//	kernings = new float[num];
+		//	for (int i = 0; i < num; i++)
+		//	{
+		//		int num2;
+		//		float num3;
+		//		PDFium.FPDFTextObj_GetCharInfo(textObject, i, out num2, out num3);
+		//		unicode[i] = PDFium.FPDFFont_UnicodeFromCharCode(font, num2);
+		//		if (unicode[i] == '\0')
+		//		{
+		//			unicode[i] = (char)num2;
+		//		}
+		//		ascii[i] = (byte)num2;
+		//		kernings[i] = num3;
+		//	}
+		//	return true;
+		//}
+
+		//public static string FPDFTextObj_GetText(FPDF_PAGEOBJECT textObject, int codePage, out float[] kernings)
+		//{
+		//	kernings = null;
+		//	byte[] bytes;
+		//	char[] array;
+		//	if (PDFium.GetTexts(textObject, out bytes, out array, out kernings))
+		//	{
+		//		return ((codePage != 0) ? Encoding.GetEncoding(codePage) : Encoding.ASCII).GetString(bytes);
+		//	}
+		//	return "";
+		//}
+
+		//public static string FPDFTextObj_GetText(FPDF_PAGEOBJECT textObject, out float[] kernings)
+		//{
+		//	kernings = null;
+		//	byte[] array;
+		//	char[] value;
+		//	if (PDFium.GetTexts(textObject, out array, out value, out kernings))
+		//	{
+		//		return new string(value);
+		//	}
+		//	return "";
+		//}
 
 		#endregion
 	}
