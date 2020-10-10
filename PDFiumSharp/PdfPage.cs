@@ -161,7 +161,48 @@ namespace PDFiumSharp
 			Render(renderTarget, (0, 0, renderTarget.Width, renderTarget.Height), orientation, flags);
 		}
 
-		public (double X, double Y) DeviceToPage((int left, int top, int width, int height) displayArea, int deviceX, int deviceY, PageOrientations orientation = PageOrientations.Normal)
+        /// <summary>
+		/// Renders the page to a <see cref="Bitmap"/>
+		/// </summary>
+		/// <param name="renderTarget">The bitmap to which the page is to be rendered.</param>
+		/// <param name="rectDest">The destination rectangle in <paramref name="renderTarget"/>.</param>
+		/// <param name="orientation">The orientation at which the page is to be rendered.</param>
+		/// <param name="flags">The flags specifying how the page is to be rendered.</param>
+        /// <param name="backgroundColor">background color of the image</param>
+        public void Render(Bitmap renderTarget, (int left, int top, int width, int height) rectDest, PageOrientations orientation = PageOrientations.Normal, RenderingFlags flags = RenderingFlags.None
+            , FPDF_COLOR? backgroundColor = null)
+        {
+            if (renderTarget == null)
+            {
+                throw new ArgumentNullException("renderTarget");
+            }
+
+            BitmapFormats format = GetBitmapFormat(renderTarget);
+            BitmapData data = renderTarget.LockBits(new Rectangle(0, 0, renderTarget.Width, renderTarget.Height), ImageLockMode.ReadWrite, renderTarget.PixelFormat);
+            using (PDFiumBitmap tmp = new PDFiumBitmap(renderTarget.Width, renderTarget.Height, format, data.Scan0, data.Stride))
+            {
+                if (backgroundColor.HasValue)
+                {
+                    tmp.Fill(backgroundColor.Value);
+                }
+                Render(tmp, rectDest, orientation, flags);
+            }
+            renderTarget.UnlockBits(data);
+        }
+
+        /// <summary>
+        /// Renders the page to a <see cref="T:System.Drawing.Bitmap" />
+        /// </summary>
+        /// <param name="bitmap">The bitmap to which the page is to be rendered.</param>
+        /// <param name="orientation">The orientation at which the page is to be rendered.</param>
+        /// <param name="flags">The flags specifying how the page is to be rendered.</param>
+        /// <param name="backgroundColor">background color of the image</param>
+        public void Render(Bitmap bitmap, PageOrientations orientation = PageOrientations.Normal, RenderingFlags flags = RenderingFlags.None, FPDF_COLOR? backgroundColor = null)
+        {
+            Render(bitmap, (0, 0, bitmap.Width, bitmap.Height), orientation, flags, backgroundColor);
+        }
+
+        public (double X, double Y) DeviceToPage((int left, int top, int width, int height) displayArea, int deviceX, int deviceY, PageOrientations orientation = PageOrientations.Normal)
 		{
 			(var left, var top, var width, var height) = displayArea;
 			PDFium.FPDF_DeviceToPage(Handle, left, top, width, height, orientation, deviceX, deviceY, out var x, out var y);
@@ -415,6 +456,21 @@ namespace PDFiumSharp
             return (flags & ~(RenderingFlags.Transparent | RenderingFlags.CorrectFromDpi));
         }
         #endregion New Render() methods
+
+        private BitmapFormats GetBitmapFormat(Bitmap bitmap)
+        {
+            switch (bitmap.PixelFormat)
+            {
+                case PixelFormat.Format24bppRgb:
+                    return BitmapFormats.BGR;
+                case PixelFormat.Format32bppArgb:
+                    return BitmapFormats.BGRA;
+                case PixelFormat.Format32bppRgb:
+                    return BitmapFormats.BGRx;
+                default:
+                    throw new NotSupportedException($"Pixel format {bitmap.PixelFormat} is not supported.");
+            }
+        }
 
         //public Rectangle BoundingBox
         //{
