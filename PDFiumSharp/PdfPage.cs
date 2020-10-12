@@ -7,10 +7,12 @@ License: Microsoft Reciprocal License (MS-RL)
 #endregion
 using System;
 using System.Drawing;
-using System.Drawing.Imaging;
+using System.Runtime.CompilerServices;
 using PDFiumSharp.Enums;
 using PDFiumSharp.Events;
 using PDFiumSharp.Types;
+
+[assembly: InternalsVisibleTo("PDFiumSharp.GdiPlus")]
 
 namespace PDFiumSharp
 {
@@ -161,47 +163,6 @@ namespace PDFiumSharp
 			Render(renderTarget, (0, 0, renderTarget.Width, renderTarget.Height), orientation, flags);
 		}
 
-        /// <summary>
-		/// Renders the page to a <see cref="Bitmap"/>
-		/// </summary>
-		/// <param name="renderTarget">The bitmap to which the page is to be rendered.</param>
-		/// <param name="rectDest">The destination rectangle in <paramref name="renderTarget"/>.</param>
-		/// <param name="orientation">The orientation at which the page is to be rendered.</param>
-		/// <param name="flags">The flags specifying how the page is to be rendered.</param>
-        /// <param name="backgroundColor">background color of the image</param>
-        public void Render(Bitmap renderTarget, (int left, int top, int width, int height) rectDest, PageOrientations orientation = PageOrientations.Normal, RenderingFlags flags = RenderingFlags.None
-            , FPDF_COLOR? backgroundColor = null)
-        {
-            if (renderTarget == null)
-            {
-                throw new ArgumentNullException("renderTarget");
-            }
-
-            BitmapFormats format = GetBitmapFormat(renderTarget);
-            BitmapData data = renderTarget.LockBits(new Rectangle(0, 0, renderTarget.Width, renderTarget.Height), ImageLockMode.ReadWrite, renderTarget.PixelFormat);
-            using (PDFiumBitmap tmp = new PDFiumBitmap(renderTarget.Width, renderTarget.Height, format, data.Scan0, data.Stride))
-            {
-                if (backgroundColor.HasValue)
-                {
-                    tmp.Fill(backgroundColor.Value);
-                }
-                Render(tmp, rectDest, orientation, flags);
-            }
-            renderTarget.UnlockBits(data);
-        }
-
-        /// <summary>
-        /// Renders the page to a <see cref="T:System.Drawing.Bitmap" />
-        /// </summary>
-        /// <param name="bitmap">The bitmap to which the page is to be rendered.</param>
-        /// <param name="orientation">The orientation at which the page is to be rendered.</param>
-        /// <param name="flags">The flags specifying how the page is to be rendered.</param>
-        /// <param name="backgroundColor">background color of the image</param>
-        public void Render(Bitmap bitmap, PageOrientations orientation = PageOrientations.Normal, RenderingFlags flags = RenderingFlags.None, FPDF_COLOR? backgroundColor = null)
-        {
-            Render(bitmap, (0, 0, bitmap.Width, bitmap.Height), orientation, flags, backgroundColor);
-        }
-
         public (double X, double Y) DeviceToPage((int left, int top, int width, int height) displayArea, int deviceX, int deviceY, PageOrientations orientation = PageOrientations.Normal)
 		{
 			(var left, var top, var width, var height) = displayArea;
@@ -279,197 +240,9 @@ namespace PDFiumSharp
             Disposed?.Invoke(this, EventArgs.Empty);
         }
 
-        #region New Render() methods
-        /// <summary>
-        /// Renders a page of the PDF document to the provided graphics instance.
-        /// </summary>
-        /// <param name="page">Number of the page to render.</param>
-        /// <param name="graphics">Graphics instance to render the page on.</param>
-        /// <param name="dpiX">Horizontal DPI.</param>
-        /// <param name="dpiY">Vertical DPI.</param>
-        /// <param name="bounds">Bounds to render the page in.</param>
-        /// <param name="forPrinting">Render the page for printing.</param>
-        public void Render(Graphics graphics, float dpiX, float dpiY, Rectangle bounds, bool forPrinting)
-        {
-            Render(graphics, dpiX, dpiY, bounds, forPrinting ? RenderingFlags.Printing : RenderingFlags.None);
-        }
-
-        /// <summary>
-        /// Renders a page of the PDF document to the provided graphics instance.
-        /// </summary>
-        /// <param name="page">Number of the page to render.</param>
-        /// <param name="graphics">Graphics instance to render the page on.</param>
-        /// <param name="dpiX">Horizontal DPI.</param>
-        /// <param name="dpiY">Vertical DPI.</param>
-        /// <param name="bounds">Bounds to render the page in.</param>
-        /// <param name="flags">Flags used to influence the rendering.</param>
-        public void Render(Graphics graphics, float dpiX, float dpiY, Rectangle bounds, RenderingFlags flags = RenderingFlags.None)
-        {
-            if (graphics == null)
-                throw new ArgumentNullException("graphics");
-            if (this.IsDisposed)
-                throw new ObjectDisposedException(GetType().Name);
-
-            float graphicsDpiX = graphics.DpiX;
-            float graphicsDpiY = graphics.DpiY;
-
-            var dc = graphics.GetHdc();
-
-            try
-            {
-                if ((int)graphicsDpiX != (int)dpiX || (int)graphicsDpiY != (int)dpiY)
-                {
-                    var transform = new XFORM
-                    {
-                        eM11 = graphicsDpiX / dpiX,
-                        eM22 = graphicsDpiY / dpiY
-                    };
-
-                    PDFium.SetGraphicsMode(dc, PDFium.GM_ADVANCED);
-                    PDFium.ModifyWorldTransform(dc, ref transform, PDFium.MWT_LEFTMULTIPLY);
-                }
-
-                var point = new POINT();
-                PDFium.SetViewportOrgEx(dc, bounds.X, bounds.Y, out point);
-
-                PDFium.FPDF_RenderPage(dc, Handle, 0, 0, bounds.Width, bounds.Height, 0, FlagsToFPDFFlags(flags));
-
-                PDFium.SetViewportOrgEx(dc, point.X, point.Y, out point);
-            }
-            finally
-            {
-                graphics.ReleaseHdc(dc);
-            }
-        }
-
-        /// <summary>
-        /// Renders a page of the PDF document to an image.
-        /// </summary>
-        /// <param name="page">Number of the page to render.</param>
-        /// <param name="dpiX">Horizontal DPI.</param>
-        /// <param name="dpiY">Vertical DPI.</param>
-        /// <param name="forPrinting">Render the page for printing.</param>
-        /// <returns>The rendered image.</returns>
-        public Image Render(float dpiX, float dpiY, bool forPrinting)
-        {
-            return Render((int)Width, (int)Height, dpiX, dpiY, forPrinting);
-        }
-
-        /// <summary>
-        /// Renders a page of the PDF document to an image.
-        /// </summary>
-        /// <param name="page">Number of the page to render.</param>
-        /// <param name="dpiX">Horizontal DPI.</param>
-        /// <param name="dpiY">Vertical DPI.</param>
-        /// <param name="flags">Flags used to influence the rendering.</param>
-        /// <returns>The rendered image.</returns>
-        public Image Render(float dpiX, float dpiY, RenderingFlags flags)
-        {
-            return Render((int)Width, (int)Height, dpiX, dpiY, flags);
-        }
-
-        /// <summary>
-        /// Renders a page of the PDF document to an image.
-        /// </summary>
-        /// <param name="page">Number of the page to render.</param>
-        /// <param name="width">Width of the rendered image.</param>
-        /// <param name="height">Height of the rendered image.</param>
-        /// <param name="dpiX">Horizontal DPI.</param>
-        /// <param name="dpiY">Vertical DPI.</param>
-        /// <param name="forPrinting">Render the page for printing.</param>
-        /// <returns>The rendered image.</returns>
-        public Image Render(int width, int height, float dpiX, float dpiY, bool forPrinting)
-        {
-            return Render(width, height, dpiX, dpiY, forPrinting ? RenderingFlags.Printing : RenderingFlags.None);
-        }
-
-        /// <summary>
-        /// Renders a page of the PDF document to an image.
-        /// </summary>
-        /// <param name="page">Number of the page to render.</param>
-        /// <param name="width">Width of the rendered image.</param>
-        /// <param name="height">Height of the rendered image.</param>
-        /// <param name="dpiX">Horizontal DPI.</param>
-        /// <param name="dpiY">Vertical DPI.</param>
-        /// <param name="flags">Flags used to influence the rendering.</param>
-        /// <returns>The rendered image.</returns>
-        public Image Render(int width, int height, float dpiX, float dpiY, RenderingFlags flags = RenderingFlags.None)
-        {
-            return Render(width, height, dpiX, dpiY, 0, flags);
-        }
-
-        /// <summary>
-        /// Renders a page of the PDF document to an image.
-        /// </summary>
-        /// <param name="page">Number of the page to render.</param>
-        /// <param name="width">Width of the rendered image.</param>
-        /// <param name="height">Height of the rendered image.</param>
-        /// <param name="dpiX">Horizontal DPI.</param>
-        /// <param name="dpiY">Vertical DPI.</param>
-        /// <param name="rotate">Rotation.</param>
-        /// <param name="flags">Flags used to influence the rendering.</param>
-        /// <returns>The rendered image.</returns>
-        public Image Render(int width, int height, float dpiX, float dpiY, PageOrientations rotate, RenderingFlags flags = RenderingFlags.None)
-        {
-            if (IsDisposed)
-                throw new ObjectDisposedException(GetType().Name);
-
-            if ((flags & RenderingFlags.CorrectFromDpi) != 0)
-            {
-                width = width * (int)dpiX / 72;
-                height = height * (int)dpiY / 72;
-            }
-
-            var bitmap = new Bitmap(width, height, PixelFormat.Format32bppArgb);
-            bitmap.SetResolution(dpiX, dpiY);
-
-            var data = bitmap.LockBits(new Rectangle(0, 0, width, height), ImageLockMode.ReadWrite, bitmap.PixelFormat);
-
-            try
-            {
-                var handle = PDFium.FPDFBitmap_CreateEx(width, height, BitmapFormats.BGRA, data.Scan0, width * 4);
-
-                try
-                {
-                    uint background = (flags & RenderingFlags.Transparent) == 0 ? 0xFFFFFFFF : 0x00FFFFFF;
-
-                    PDFium.FPDFBitmap_FillRect(handle, 0, 0, width, height, background);
-
-                    PDFium.FPDF_RenderPageBitmap(handle, Handle, 0, 0, width, height, rotate, FlagsToFPDFFlags(flags));
-
-                }
-                finally
-                {
-                    PDFium.FPDFBitmap_Destroy(handle);
-                }
-            }
-            finally
-            {
-                bitmap.UnlockBits(data);
-            }
-
-            return bitmap;
-        }
-
-        private RenderingFlags FlagsToFPDFFlags(RenderingFlags flags)
+        internal RenderingFlags FlagsToFPDFFlags(RenderingFlags flags)
         {
             return (flags & ~(RenderingFlags.Transparent | RenderingFlags.CorrectFromDpi));
-        }
-        #endregion New Render() methods
-
-        private BitmapFormats GetBitmapFormat(Bitmap bitmap)
-        {
-            switch (bitmap.PixelFormat)
-            {
-                case PixelFormat.Format24bppRgb:
-                    return BitmapFormats.BGR;
-                case PixelFormat.Format32bppArgb:
-                    return BitmapFormats.BGRA;
-                case PixelFormat.Format32bppRgb:
-                    return BitmapFormats.BGRx;
-                default:
-                    throw new NotSupportedException($"Pixel format {bitmap.PixelFormat} is not supported.");
-            }
         }
 
         //public Rectangle BoundingBox
