@@ -1,4 +1,9 @@
 $textTransformPath = .\vswhere.exe -latest -find Common7\IDE\TextTransform.exe | select-object -first 1
+
+if (-not $textTransformPath) {
+    $textTransformPath = .\vswhere.exe -products Microsoft.VisualStudio.Product.BuildTools -find Common7\IDE\TextTransform.exe | select-object -first 1
+}
+
 if ($textTransformPath) {
     Write-Output $msBuildPath
 }
